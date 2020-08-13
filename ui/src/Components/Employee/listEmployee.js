@@ -19,12 +19,8 @@ export default class ListEmployee extends Component {
     }
 
     componentDidMount(){
-        const promise1 = axios.get('http://dct-ticket-master.herokuapp.com/departments', {
-            headers:{'x-auth': localStorage.getItem('authToken')}
-        })
-        const promise2 = axios.get('http://dct-ticket-master.herokuapp.com/employees', {
-            headers:{'x-auth': localStorage.getItem('authToken')}
-        })
+        const promise1 = axios.get('http://localhost:3015/departments')
+        const promise2 = axios.get('http://localhost:3015/employees')
 
         Promise.all([promise1,promise2])
         .then(response=>{
@@ -40,9 +36,7 @@ export default class ListEmployee extends Component {
 
     handleChange = (newValue) => {
         if(newValue && newValue.__isNew__){
-            axios.post('http://dct-ticket-master.herokuapp.com/departments', {name:newValue.value},{
-                headers:{'x-auth': localStorage.getItem('authToken')}
-            })
+            axios.post('http://localhost:3015/departments', {name:newValue.value})
             .then(response=>{
                 if(response.status === 200){
                     const departments = [...this.state.departments, response.data]
@@ -59,9 +53,7 @@ export default class ListEmployee extends Component {
     }
 
     createNewEmployee = (formData) => {
-        axios.post('http://dct-ticket-master.herokuapp.com/employees', formData,{
-            headers:{'x-auth': localStorage.getItem('authToken')}
-        })
+        axios.post('http://localhost:3015/employees', formData)
         .then(response => {
             if(response.status === 200){
                 console.log(response.data)
@@ -104,9 +96,7 @@ export default class ListEmployee extends Component {
           })
           .then((result) => {
             if (result.value) {
-                axios.delete(`http://dct-ticket-master.herokuapp.com/employees/${employee._id}`,{
-                    headers:{'x-auth': localStorage.getItem('authToken')}
-                })
+                axios.delete(`http://localhost:3015/employees/${employee._id}`)
                 .then(response => {
                     if(response.status === 200){
                         const employees= this.state.employees.filter(employee=> employee._id !== response.data._id)
@@ -191,7 +181,10 @@ export default class ListEmployee extends Component {
                         )
                     })}
                 </div>
-                <EmployeeModal departments={this.state.departments} employee={this.state.employeeToShow} type={this.state.modalType} show={this.state.isModalOpen} createNewEmployee={this.createNewEmployee} hide={()=>{this.setState({isModalOpen:false})}}/>
+                <EmployeeModal departments={this.state.departments} employee={this.state.employeeToShow} type={this.state.modalType} show={this.state.isModalOpen} createNewEmployee={this.createNewEmployee} hide={()=>{
+                    console.log('closing modal')
+                    this.setState({isModalOpen:false})
+                }}/>
             </div> :
             <Spinner animation="border" role="status" style={{position:'absolute', top: '50%', left:'48%'}}>
                 <span className="sr-only">Loading...</span>

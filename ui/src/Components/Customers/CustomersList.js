@@ -15,9 +15,7 @@ export default class CustomersList extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://dct-ticket-master.herokuapp.com/customers',{
-            headers:{'x-auth': localStorage.getItem('authToken')}
-        })
+        axios.get('http://localhost:3015/customers')
         .then(response => {
            if(response.status === 200){
                this.setState({customers:response.data})
@@ -31,9 +29,7 @@ export default class CustomersList extends Component {
     }
 
     createNewCustomer = (formData) => {
-        axios.post('http://dct-ticket-master.herokuapp.com/customers', formData, {
-            headers:{'x-auth': localStorage.getItem('authToken')}
-        })
+        axios.post('http://localhost:3015/customers', formData)
         .then(response => {
            if(response.status === 200){
                const customers= [...this.state.customers]
@@ -73,9 +69,7 @@ export default class CustomersList extends Component {
           })
           .then((result) => {
             if (result.value) {
-                axios.delete(`http://dct-ticket-master.herokuapp.com/customers/${id}`,{
-                    headers:{'x-auth': localStorage.getItem('authToken')}
-                })
+                axios.delete(`http://localhost:3015/customers/${id}`)
                 .then(response =>{
                     if(response.status === 200){
                         const customers = this.state.customers.filter(customer => customer._id !== id)
@@ -100,9 +94,7 @@ export default class CustomersList extends Component {
     }
 
     editCustomer = (formData) => {
-        axios.put(`http://dct-ticket-master.herokuapp.com/customers/${formData._id}`, {name:formData.name, email:formData.email, mobile: formData.mobile}, {
-            headers:{'x-auth': localStorage.getItem('authToken')}
-        })
+        axios.put(`http://localhost:3015/customers/${formData._id}`, {name:formData.name, email:formData.email, mobile: formData.mobile})
         .then(response => {
            if(response.status === 200){
                 let customers= [...this.state.customers]

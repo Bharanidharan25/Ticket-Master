@@ -1,0 +1,143 @@
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.modal-content {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 0.7rem !important;
+}
+
+.customerInfo{
+  color:darkgray; 
+}
+
+.customerInfo:hover{
+  color:lightblue;
+}
+
+.creatableSelect{
+  width: 50%;
+}
+
+.cardList {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card{
+  width: 18rem; 
+  margin: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 0.7rem !important;
+}
+
+.high{
+  color:red;
+}
+.medium{
+  color: rgb(255, 166, 0);
+}
+.low{
+  color: #19d819;
+}
+
+.ticketContainerLeft{
+  width: 30%;
+  float: left;
+  padding-right: 20px;
+}
+
+.ticketContainerRight{
+  width: 70%;
+  height: 80vh;
+  float: right;
+  padding-left: 20px;
+  overflow-y: auto;
+}
+
+.comment{
+  border-bottom: 1px solid lightgrey;
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment:last-child{
+  border-bottom: none;
+}
+
+.commentdiv{
+  border: 1px solid lightgrey;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.tablecontent{
+  white-space: nowrap;
+  overflow: hidden;
+  max-width:150px;
+  text-overflow:ellipsis;
+}
+
+.chartLoader{
+  width:500px;
+  height:300px;
+  text-align:center; 
+  position:relative;
+  top:120px;
+}
+
+.chartDiv{
+  width:100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px;
+  text-align: center;
+}
+
+.chartDiv .chart{
+  width:530px;
+  height: 400px;
+}
+
+@media screen and (max-width: 991px) {
+  .ticketContainerLeft{
+    width: 100%;
+    float:none;
+  }
+
+  .ticketContainerRight{
+    margin-top: 20px;
+    width: 100%;
+    height: auto;
+    padding-left: 0;
+    float: none;
+  }
+  .comment{
+    border-bottom: 1px solid lightgrey;
+    display: block;
+  }
+
+  .comment img{
+    display: none;
+  }
+  
+  .chartDiv{
+    display: block;
+    width: 100%;
+  }
+
+  .chartDiv .chart{
+    width: 100%;
+    height:300px;
+  }
+
+  .chartLoader{
+    width:100%;
+    height:300px;
+    text-align:center; 
+    position:relative;
+    top:120px;
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal, Button, Form} from 'react-bootstrap'
+import {Modal, Button, Spinner, Form} from 'react-bootstrap'
 
 export default class ModalComponent extends React.Component {
 
@@ -9,7 +9,7 @@ export default class ModalComponent extends React.Component {
         email:'',
         phone:'',
         validated:false,
-        isDataNew: true
+        submitting: false
     }
 
     componentDidUpdate(prevProps){
@@ -24,7 +24,7 @@ export default class ModalComponent extends React.Component {
                 email = this.props.customer.email
                 phone = this.props.customer.mobile
             }
-            this.setState({_id,name,email,phone})
+            this.setState({_id,name,email,phone, submitting:false})
         }
     }
 
@@ -42,6 +42,7 @@ export default class ModalComponent extends React.Component {
             mobile: this.state.phone
         }
         e.preventDefault()
+        this.setState({submitting:true, _id:''})
         this.props.type==='new' ? 
             this.props.createNewCustomer(formData) : 
             this.props.editCustomer({...this.props.customer, name: this.state.name, email:this.state.email, mobile:this.state.phone})
@@ -105,7 +106,15 @@ export default class ModalComponent extends React.Component {
                     {this.props.type==='new' || this.props.type==='edit' ? (
                         <>
                         <Button variant='secondary' onClick={this.props.hide}>Cancel</Button>
-                        <Button type='submit' variant='primary' onClick={this.handleSubmit}>Submit</Button>
+                        <Button type='submit' id='submit' variant='primary' onClick={this.handleSubmit}>
+                            {this.state.submitting ? <Spinner
+                                as="spin"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />: 'Submit'}
+                            </Button>
                         </>
                     ):(
                         <Button variant='secondary' onClick={this.props.hide}>Close</Button>
